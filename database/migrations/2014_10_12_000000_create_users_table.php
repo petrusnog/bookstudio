@@ -17,8 +17,15 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone');
+            $table->unsignedBigInteger('role_id');
             $table->rememberToken();
             $table->timestamps();
+
+            # Adds Type relation to user.
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('roles');
         });
     }
 

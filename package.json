@@ -7,7 +7,12 @@
     },
     "devDependencies": {
         "axios": "^1.6.4",
+        "bulma": "^1.0.4",
         "laravel-vite-plugin": "^1.0.0",
+        "sass": "^1.89.2",
         "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "inputmask": "^5.0.9"
     }
 }
