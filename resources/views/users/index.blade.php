@@ -6,12 +6,20 @@
 
 @section('content')
     <div class="is-flex is-justify-content-space-between mb-4">
-        <form action="#" class="is-flex">
-            <input class="input is-normal mr-2" placeholder="Pesquisar" type="text" name="" id="">
-            <button type="submit" class="button is-primary" style="color: white;">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form>
+        <div class="is-flex">
+            @if ((bool) $search)
+                <a href="{{ route('users.index') }}" class="button is-info mr-2" style="color: white">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    Voltar
+                </a>
+            @endif
+            <form action="{{ route('users.index') }}" method="GET" class="is-flex">
+                <input class="input is-normal mr-2" placeholder="Pesquisar" type="text" name="search" id="">
+                <button type="submit" class="button is-primary" style="color: white;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
         <a href="{{ route('users.create') }}" class="button is-primary" style="color: white">
             <i class="fa-solid fa-plus mr-2"></i>
             Criar novo
@@ -33,10 +41,11 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->phone }}</td>
-                <td>{{ $roles->firstWhere('id', $user->role_id)->label; }}</td>
+                <td>{{ $roles->firstWhere('id', $user->role_id)->label }}</td>
                 <td>
                     <div class="is-flex">
-                        <a href="{{ route('users.edit', $user->id) }}" class="button is-white is-info mr-2" style="color: white">
+                        <a href="{{ route('users.edit', $user->id) }}" class="button is-white is-info mr-2"
+                            style="color: white">
                             <i class="fa-solid fa-bars mr-2"></i>
                             Editar
                         </a>
