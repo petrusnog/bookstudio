@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="is-flex is-justify-content-space-between mb-4">
-        <a href="{{ route('users.list') }}" class="button is-info" style="color: white">
+        <a href="{{ route('users.index') }}" class="button is-info" style="color: white">
             <i class="fa-solid fa-arrow-left mr-2"></i>
             Voltar
         </a>

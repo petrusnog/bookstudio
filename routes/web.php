@@ -30,13 +30,23 @@ Route::middleware(['guest'])->group(function () {
 // ROTAS PROTEGIDAS
 Route::middleware(['auth'])->group(function () {
     // Geral
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Usuários
-    Route::get('/admin/users', [UserController::class, 'index'])->name('users.list');
-    Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/admin/users/create', [UserController::class, 'store'])->name('users.create');
-    Route::get('/admin/users/{id}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
+
+    // CREATE
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users/create', [UserController::class, 'store'])->name('users.create');
+
+    // READ
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    // UPDATE
+    Route::get('/users/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+
+    // DELETE
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });

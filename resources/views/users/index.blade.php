@@ -35,10 +35,20 @@
                 <td>{{ $user->phone }}</td>
                 <td>{{ $roles->firstWhere('id', $user->role_id)->label; }}</td>
                 <td>
-                    <a href="{{ route('users.edit', $user->id) }}" class="button is-white is-info" style="color: white">
-                        <i class="fa-solid fa-bars mr-2"></i>
-                        Editar
-                    </a>
+                    <div class="is-flex">
+                        <a href="{{ route('users.edit', $user->id) }}" class="button is-white is-info mr-2" style="color: white">
+                            <i class="fa-solid fa-bars mr-2"></i>
+                            Editar
+                        </a>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="button is-danger" style="color: white">
+                                <i class="fa-solid fa-trash mr-2"></i>
+                                Deletar
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tbody>
         @endforeach

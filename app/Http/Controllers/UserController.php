@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
-        return view('users.list', compact('users', 'roles'));
+        return view('users.index', compact('users', 'roles'));
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
             'role_id' => $request->role_id
         ]);
 
-        return redirect()->route('users.edit', $user->id)->with('success', 'Usuário cadastrado com sucesso.');
+        return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso.');
     }
 
     /**
@@ -108,6 +108,18 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+
+            if (auth()->id() == $user->id) {
+                return redirect()->route('users.index')->with('error', 'Você não pode deletar o seu próprio usuário.');
+            }
+
+            $user->delete();
+            return redirect()->route('users.index')->with('success', 'Usuário deletado com sucesso!');
+
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('error', 'Erro ao deletar o usuário!');
+        }
     }
 }

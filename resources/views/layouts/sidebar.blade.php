@@ -1,4 +1,7 @@
-<aside class="menu p-4 has-background-light" style="height: 100vh;">
+<aside class="menu p-4 has-background-light" style="min-height: 100vh;">
+    <a class="logo" href="{{ route('login') }}">
+        <img src="{{ asset('images/logo.png') }}" alt="Book Studio Logo" class="logo">
+    </a>
     <p class="menu-label">
         Geral
     </p>
@@ -15,7 +18,7 @@
             Administração
         </p>
         <ul class="menu-list">
-            <li><a href="{{ route('users.list') }}" class="{{ request()->routeIs('users.create') ? 'is-active' : '' }}">Usuários</a></li>
+            <li><a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.create') ? 'is-active' : '' }}">Usuários</a></li>
             <li><a href="{{ route('dashboard') }}">Perfis</a></li>
         </ul>
     @endif

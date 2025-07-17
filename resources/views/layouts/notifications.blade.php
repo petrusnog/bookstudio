@@ -1,7 +1,4 @@
 @if (session('success'))
-    <div class="notification is-success">
-        {{ session('success') }}
-    </div>
     <article class="message is-success">
         <div class="message-header">
             <p>Sucesso</p>
