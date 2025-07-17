@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use App\Models\Role;
 
 class UserController extends Controller
@@ -12,7 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        $roles = Role::all();
+        return view('users.list', compact('users', 'roles'));
     }
 
     /**
@@ -29,7 +33,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validação dos dados do usuário
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|confirmed|min:6',
+            'phone' => 'required|string|max:20',
+            'role_id' => 'required|exists:roles,id'
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'role_id' => $request->role_id
+        ]);
+
+        return redirect()->route('users.edit', $user->id)->with('success', 'Usuário cadastrado com sucesso.');
     }
 
     /**
@@ -45,7 +66,10 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -53,7 +77,30 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validação dos dados do usuário
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'nullable|string|confirmed|min:6',
+            'phone' => 'required|string|max:20',
+            'role_id' => 'required|exists:roles,id'
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'role_id' => $request->role_id
+        ];
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user = User::findOrFail($id);
+        $user->update($data);
+
+        return redirect()->route('users.edit', $id)->with('success', 'Usuário atualizado com sucesso.');
     }
 
     /**

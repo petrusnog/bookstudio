@@ -6,17 +6,6 @@
 
 @section('content')
     <section class="section">
-        @if (session('error'))
-            <article class="message is-danger">
-                <div class="message-header">
-                    <p>Erro</p>
-                    <button class="delete" aria-label="delete"></button>
-                </div>
-                <div class="message-body">
-                    {{ session('error') }}
-                </div>
-            </article>
-        @endif
         <div class="container">
             <div class="column is-half is-offset-one-quarter is-flex is-flex-direction-column is-align-items-center">
                 <a href="{{ route('login') }}">
@@ -60,20 +49,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const deleteButtons = document.querySelectorAll('.message .delete');
-
-            deleteButtons.forEach(($delete) => {
-                const $message = $delete.closest('.message');
-
-                $delete.addEventListener('click', () => {
-                    $message.remove();
-                });
-            });
-        });
-    </script>
 @endsection

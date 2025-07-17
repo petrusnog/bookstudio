@@ -15,7 +15,7 @@
             Administração
         </p>
         <ul class="menu-list">
-            <li><a href="{{ route('users.create') }}" class="{{ request()->routeIs('users.create') ? 'is-active' : '' }}">Usuários</a></li>
+            <li><a href="{{ route('users.list') }}" class="{{ request()->routeIs('users.create') ? 'is-active' : '' }}">Usuários</a></li>
             <li><a href="{{ route('dashboard') }}">Perfis</a></li>
         </ul>
     @endif

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pagename')
-    Cadastrar Usuário
+    Editar Usuário
 @endsection
 
 @section('content')
@@ -11,20 +11,21 @@
             Voltar
         </a>
     </div>
-    <form method="POST" action="{{ route('users.create') }}" class="box">
+    <form method="POST" action="{{ route('users.update', $user->id) }}" class="box">
         @csrf
+        @method('PUT')
 
         <div class="field mb-3">
             <label class="label">Nome</label>
             <div class="control">
-                <input class="input" type="text" name="name" value="{{ old('name') }}" required>
+                <input class="input" type="text" name="name" value="{{ old('name', $user->name) }}" required>
             </div>
         </div>
 
         <div class="field mb-3">
             <label class="label">E-mail</label>
             <div class="control">
-                <input class="input" type="email" name="email" value="{{ old('email') }}" required>
+                <input class="input" type="email" name="email" value="{{ old('email', $user->email) }}" required>
             </div>
         </div>
 
@@ -32,21 +33,21 @@
             <label class="label">Telefone</label>
             <div class="control">
                 <input class="input" type="tel" name="phone" pattern="^\(\d{2}\)\s9?\d{4}-\d{4}$"
-                    value="{{ old('phone') }}" required>
+                    value="{{ old('phone', $user->phone) }}" required>
             </div>
         </div>
 
         <div class="field mb-3">
-            <label class="label">Senha</label>
+            <label class="label">Senha (deixe em branco para não alterar)</label>
             <div class="control">
-                <input class="input" type="password" name="password" required>
+                <input class="input" type="password" name="password">
             </div>
         </div>
 
         <div class="field mb-3">
             <label class="label">Confirme a Senha</label>
             <div class="control">
-                <input class="input" type="password" name="password_confirmation" required>
+                <input class="input" type="password" name="password_confirmation">
             </div>
         </div>
 
@@ -57,7 +58,8 @@
                     <select name="role_id" required>
                         <option value="">Selecione...</option>
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                            <option value="{{ $role->id }}"
+                                {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>
                                 {{ $role->label }}
                             </option>
                         @endforeach
