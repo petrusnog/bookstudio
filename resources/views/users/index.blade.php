@@ -31,7 +31,7 @@
                 <th>Nome</th>
                 <th>E-mail</th>
                 <th>Telefone</th>
-                <th>Tipo de usuário</th>
+                <th>Perfil</th>
                 <th>Ações</th>
             </tr>
         </thead>
