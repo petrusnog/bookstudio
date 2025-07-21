@@ -18,6 +18,7 @@ class StudioController extends Controller
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")
+                    ->orWhere('address', 'like', "%$search%")
                     ->orWhere('email', 'like', "%$search%");
             });
         }

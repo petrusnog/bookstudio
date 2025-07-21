@@ -8,12 +8,12 @@
     <div class="is-flex is-justify-content-space-between mb-4">
         <div class="is-flex">
             @if ((bool) $search)
-                <a href="{{ route('users.index') }}" class="button is-info mr-2" style="color: white">
+                <a href="{{ route('studios.index') }}" class="button is-info mr-2" style="color: white">
                     <i class="fa-solid fa-arrow-left mr-2"></i>
                     Voltar
                 </a>
             @endif
-            <form action="{{ route('users.index') }}" method="GET" class="is-flex">
+            <form action="{{ route('studios.index') }}" method="GET" class="is-flex">
                 <input class="input is-normal mr-2" placeholder="Pesquisar" type="text" name="search" id="">
                 <button type="submit" class="button is-primary" style="color: white;">
                     <i class="fa-solid fa-magnifying-glass"></i>
