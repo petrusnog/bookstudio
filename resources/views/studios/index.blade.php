@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pagename')
-    Usuários
+    Estúdios
 @endsection
 
 @section('content')
@@ -20,37 +20,37 @@
                 </button>
             </form>
         </div>
-        <a href="{{ route('users.create') }}" class="button is-primary" style="color: white">
+        <a href="{{ route('studios.create') }}" class="button is-primary" style="color: white">
             <i class="fa-solid fa-plus mr-2"></i>
             Criar novo
         </a>
     </div>
-    @if (count($users) > 0)
+    @if(count($studios) > 0)
         <table class="table us-striped is-hoverable is-fullwidth">
             <thead>
                 <tr>
                     <th>Nome</th>
+                    <th>Endereço</th>
                     <th>E-mail</th>
                     <th>Telefone</th>
-                    <th>Perfil</th>
                     <th>Ações</th>
                 </tr>
             </thead>
 
-            @foreach ($users as $user)
+            @foreach ($studios as $studio)
                 <tbody>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->phone }}</td>
-                    <td>{{ $roles->firstWhere('id', $user->role_id)->label }}</td>
+                    <td>{{ $studio->name }}</td>
+                    <td>{{ $studio->address }}</td>
+                    <td>{{ $studio->email }}</td>
+                    <td>{{ $studio->phone }}</td>
                     <td>
                         <div class="is-flex">
-                            <a href="{{ route('users.edit', $user->id) }}" class="button is-white is-info mr-2"
+                            <a href="{{ route('studios.edit', $studio->id) }}" class="button is-white is-info mr-2"
                                 style="color: white">
                                 <i class="fa-solid fa-bars mr-2"></i>
                                 Editar
                             </a>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                            <form action="{{ route('studios.destroy', $studio->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="button is-danger" style="color: white">
@@ -65,7 +65,7 @@
         </table>
     @else
         <div class="column is-full is-flex is-justify-content-center no-records">
-            Nenhum usuário cadastrado.
+            Nenhum estúdio cadastrado.
         </div>
     @endif
 @endsection

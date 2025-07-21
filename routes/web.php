@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StudioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +50,21 @@ Route::middleware(['auth'])->group(function () {
 
     // DELETE
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
+    // Estúdios
+
+    // CREATE
+    Route::get('/studios/create', [StudioController::class, 'create'])->name('studios.create');
+    Route::post('/studios/store', [StudioController::class, 'store'])->name('studios.store');
+
+    // // READ
+    Route::get('/studios', [StudioController::class, 'index'])->name('studios.index');
+
+    // // UPDATE
+    Route::get('/studios/{id}', [StudioController::class, 'edit'])->name('studios.edit');
+    Route::put('/studios/{id}', [StudioController::class, 'update'])->name('studios.update');
+
+    // // DELETE
+    Route::delete('/studios/{id}', [StudioController::class, 'destroy'])->name('studios.destroy');
 });

@@ -111,7 +111,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($data);
 
-        return redirect()->route('users.edit', $id)->with('success', 'Usuário atualizado com sucesso.');
+        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
     }
 
     /**

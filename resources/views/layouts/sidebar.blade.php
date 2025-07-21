@@ -8,8 +8,8 @@
     <ul class="menu-list">
         <li><a href="{{ route('dashboard') }}"
                 class="{{ request()->routeIs('dashboard') ? 'is-active' : '' }}">Dashboard</a></li>
-        <li><a href="{{ route('dashboard') }}">Agendamentos</a></li>
-        <li><a href="{{ route('dashboard') }}">Estúdios</a></li>
+        <li><a href="{{ route('dashboard') }}">Ensaios</a></li>
+        <li><a href="{{ route('studios.index') }}" class="{{ request()->routeIs('studios.*') ? 'is-active' : '' }}">Estúdios</a></li>
         <li><a href="{{ route('dashboard') }}">Salas</a></li>
     </ul>
 
@@ -18,7 +18,7 @@
             Administração
         </p>
         <ul class="menu-list">
-            <li><a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.create') ? 'is-active' : '' }}">Usuários</a></li>
+            <li><a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'is-active' : '' }}">Usuários</a></li>
             <li><a href="{{ route('dashboard') }}">Perfis</a></li>
         </ul>
     @endif

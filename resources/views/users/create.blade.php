@@ -70,7 +70,7 @@
             <div class="control">
                 <button type="submit" class="button is-primary" style="color: white">
                     <i class="fa-solid fa-floppy-disk mr-2"></i>
-                    Salvar Alterações
+                    Salvar
                 </button>
             </div>
         </div>
