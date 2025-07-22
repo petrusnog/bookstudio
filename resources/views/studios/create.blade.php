@@ -43,6 +43,16 @@
             </div>
         </div>
 
+        <h1 class="title is-5 mb-4 mt-4">Disponibilidade do estúdio</h1>
+
+        <button id="add-availability" class="button is-info" style="color: white;">
+            <i class="fa-solid fa-plus mr-2"></i>
+            Adicionar
+        </button>
+
+        <div id="availabilities">
+        </div>
+
         <div class="field is-grouped is-justify-content-end mt-4">
             <div class="control">
                 <button type="submit" class="button is-primary" style="color: white">
