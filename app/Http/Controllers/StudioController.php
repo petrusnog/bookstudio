@@ -5,9 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\Availability;
 use Illuminate\Http\Request;
 use App\Models\Studio;
+use Illuminate\Support\Facades\DB;
 
 class StudioController extends Controller
 {
+    // Validação do estúdio.
+    private function validation(Request $request, $studioId = 0)
+    {
+        $emailRule = 'required|email|unique:studios,email';
+        if ((bool) $studioId) {
+            // Verifica se o e-mail é único, exceto pelo e-mail do estúdio editado.
+            $emailRule .= "," . $studioId;
+        }
+
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required|max:250',
+            'email' => $emailRule,
+            'phone' => 'required|string|max:20',
+            'availabilities' => 'required|array|min:1',
+            'availabilities.*.weekdays' => 'required|array|min:1',
+            'availabilities.*.open_time' => 'required|date_format:H:i',
+            'availabilities.*.close_time' => 'required|date_format:H:i'
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -43,17 +65,7 @@ class StudioController extends Controller
     public function store(Request $request)
     {
         try {
-            // Studio data validation
-            $request->validate([
-                'name' => 'required',
-                'address' => 'required|max:250',
-                'email' => 'required|email|unique:studios,email',
-                'phone' => 'required|string|max:20',
-                'availabilities' => 'required|array|min:1',
-                'availabilities.*.weekdays' => 'required|array|min:1',
-                'availabilities.*.open_time' => 'required|date_format:H:i',
-                'availabilities.*.close_time' => 'required|date_format:H:i'
-            ]);
+            $this->validation($request);
 
             $studio = Studio::create([
                 'name' => $request->name,
@@ -85,26 +97,6 @@ class StudioController extends Controller
             return redirect()->route('studios.index')->with('error', $e->getMessage());
         }
     }
-
-    // public function debug()
-    // {
-    //     $request = new \Illuminate\Http\Request([
-    //         'name' => 'Studio Teste',
-    //         'address' => 'Rua Fictícia, 123',
-    //         'email' => 'teste@example.com',
-    //         'phone' => '85999999999',
-    //         'availabilities' => [
-    //             [
-    //                 'weekdays' => ['monday', 'tuesday'],
-    //                 'open_time' => '10:00',
-    //                 'close_time' => '18:00',
-    //             ]
-    //         ]
-    //     ]);
-
-    //     return $this->store($request);
-    // }
-
     /**
      * Display the specified resource.
      */
@@ -132,19 +124,7 @@ class StudioController extends Controller
         try {
             $studio = Studio::findOrFail($id);
 
-            // Validação dos dados do usuário
-            $validation_data = [
-                'name' => 'required',
-                'address' => 'required|max:250',
-                'phone' => 'required|string|max:20'
-            ];
-
-            if ($request->email != $studio->email) {
-                $validation_data['email'] = 'required|email|unique:studios,email';
-            }
-
-            $request->validate($validation_data);
-
+            $this->validation($request, $studio->id);
 
             $studio->update([
                 'name' => $request->name,
@@ -153,24 +133,21 @@ class StudioController extends Controller
                 'phone' => $request->phone
             ]);
 
+            // Edição de disponibilidades do estúdio.
+            // Utilização de transaction para fins de integridade de dados.
+            DB::transaction(function () use ($studio, $request) {
+                // Deleta tudo e recadastra.
+                $studio->availabilities()->delete();
 
-            foreach ($request->availabilities as $request_avl) {
-                if (array_key_exists('id', $request_avl)) {
-                    $availability = Availability::findOrFail($request_avl['id']);
-                    $availability->update([
-                        'weekdays' => json_encode($request_avl['weekdays']),
-                        'open_time' => $request_avl['open_time'],
-                        'close_time' => $request_avl['close_time']
-                    ]);
-                } else {
-                    $availability = Availability::create([
+                foreach ($request->availabilities as $request_avl) {
+                    Availability::create([
                         'studio_id' => $studio->id,
                         'weekdays' => json_encode($request_avl['weekdays']),
                         'open_time' => $request_avl['open_time'],
                         'close_time' => $request_avl['close_time']
                     ]);
                 }
-            }
+            });
 
             return redirect()->route('studios.index')->with('success', 'Estúdio atualizado com sucesso!');
 

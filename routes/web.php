@@ -21,8 +21,6 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-//Route::get('/debug', [StudioController::class, 'debug']);
-
 // ROTAS ABERTAS
 Route::middleware(['guest'])->group(function () {
     // Login

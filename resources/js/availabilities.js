@@ -57,3 +57,11 @@ document.getElementById("add-availability").addEventListener("click", (e) => {
 
     availabilityIndex++;
 });
+
+// Apaga as janelas de disponibilidade já cadastradas.
+document.querySelectorAll('.availability-card .delete').forEach(element => {
+    element.addEventListener('click', (e) => {
+        e.preventDefault();
+        element.closest('.availability-card').remove();
+    });
+});

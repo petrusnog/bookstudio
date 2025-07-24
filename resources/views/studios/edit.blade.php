@@ -76,7 +76,6 @@
         <div id="availabilities">
             @foreach ($availabilities as $availability)
                 <div class="availability-card message is-info mt-3">
-                    <input class="input" type="hidden" name="availabilities[{{ $index }}][id]" value="{{ $availability->id }}" />
                     <div class="message-header">
                         <p style="color: white">Disponibilidade</p>
                         <button class="delete" aria-label="delete"></button>

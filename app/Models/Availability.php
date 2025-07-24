@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Availability extends Model
 {
@@ -30,5 +31,15 @@ class Availability extends Model
     public function studios()
     {
         return $this->belongsTo(Studio::class);
+    }
+
+    public function getOpenTimeAttribute($value)
+    {
+        return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
+    }
+
+    public function getCloseTimeAttribute($value)
+    {
+        return Carbon::createFromFormat('H:i:s', $value)->format('H:i');
     }
 }
