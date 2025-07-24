@@ -14,6 +14,7 @@
     <form method="POST" action="{{ route('studios.store') }}" class="box">
         @csrf
 
+        <h2 class="title is-4 mb-4 mt-4">Dados cadastrais</h2>
         <div class="field mb-3">
             <label class="label">Nome</label>
             <div class="control">
@@ -43,7 +44,7 @@
             </div>
         </div>
 
-        <h1 class="title is-5 mb-4 mt-4">Disponibilidade do estúdio</h1>
+        <h2 class="title is-4 mb-4 mt-4">Disponibilidade do estúdio</h2>
 
         <button id="add-availability" class="button is-info" style="color: white;">
             <i class="fa-solid fa-plus mr-2"></i>

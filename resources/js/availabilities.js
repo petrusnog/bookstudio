@@ -35,11 +35,11 @@ document.getElementById("add-availability").addEventListener("click", (e) => {
             <div class="is-flex">
                 <div class="control has-icons-left has-icons-right mr-4">
                     <label class="label">Abre:</label>
-                    <input class="input" type="time" name="availabilities[${availabilityIndex}][open_time][]" />
+                    <input class="input" type="time" name="availabilities[${availabilityIndex}][open_time]" />
                 </div>
                 <div class="control has-icons-left has-icons-right">
                     <label class="label">Fecha:</label>
-                    <input class="input" type="time" name="availabilities[${availabilityIndex}][close_time][]" />
+                    <input class="input" type="time" name="availabilities[${availabilityIndex}][close_time]" />
                 </div>
             </div>
         </div>

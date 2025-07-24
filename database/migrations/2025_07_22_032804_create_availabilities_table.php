@@ -20,9 +20,9 @@ return new class extends Migration
     {
         Schema::create('availabilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('studio_id')->constrained()->onDelete('cascade');
-            $table->foreignId('room_id')->constrained()->onDelete('cascade');
-            $table->json('weekdays_open');
+            $table->foreignId('studio_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('room_id')->nullable()->constrained()->onDelete('cascade');
+            $table->json('weekdays');
             $table->time('open_time');
             $table->time('close_time');
             $table->timestamps();
